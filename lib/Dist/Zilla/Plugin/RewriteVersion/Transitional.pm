@@ -110,8 +110,8 @@ manually edit the F<dist.ini> or any F<.pm> files.
 
 As with L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion>, the version
 can be overridden with the C<V> environment variable, or provided through some
-other means by setting C<skip_version_provider = 1>.  Then, the
-L<Dist::Zilla/main module> in the distribution is checked for a C<$VERSION>
+other means by setting C<skip_version_provider = 1>.  Then, the main module (see
+L<Dist::Zilla/main module>) in the distribution is checked for a C<$VERSION>
 assignment.  If one is not found, then the plugin named by the
 C<fallback_version_provider> is instantiated (with any extra configuration
 options provided) and called to determine the version.
@@ -149,8 +149,8 @@ I am also usually active on irc, as 'ether' at C<irc.perl.org>.
 =head1 SEE ALSO
 
 =for :list
-* L<[PkgVersion]|Dist::Zilla::Plugin::PkgVersion>
-* L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion>
-* L<[BumpVersionAfterRelease]|Dist::Zilla::Plugin::BumpVersionAfterRelease>
+* L<Dist::Zilla::Plugin::PkgVersion>
+* L<Dist::Zilla::Plugin::RewriteVersion>
+* L<Dist::Zilla::Plugin::BumpVersionAfterRelease>
 
 =cut
