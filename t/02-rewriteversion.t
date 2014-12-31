@@ -10,15 +10,6 @@ use Path::Tiny;
 
 local $TODO = 'not yet done!';
 
-my $captured_args;
-{
-    package inc::SimpleVersionProvider;
-    use Moose;
-    with 'Dist::Zilla::Role::VersionProvider';
-    sub provide_version { '0.005' }
-    sub BUILD { $captured_args = $_[1] }
-}
-
 my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },
     {
@@ -34,12 +25,11 @@ my $tzil = Builder->from_config(
                 [ GatherDir => ],
                 [ MetaConfig => ],
                 [ 'RewriteVersion::Transitional' => {
-                        fallback_version_provider => '=inc::SimpleVersionProvider',
-                        some_other_arg => 'oh hai',
+                        fallback_version_provider => 'not used',
                     },
                 ],
             ),
-            path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
+            path(qw(source lib Foo.pm)) => "package Foo;\n\nour \$VERSION = '0.002';\n\n1;\n",
         },
     },
 );
@@ -53,26 +43,15 @@ is(
 
 is(
     $tzil->version,
-    '0.005',
-    'fallback version provider was employed to get the version',
+    '0.002',
+    'version was properly extracted from .pm file',
 );
-
-cmp_deeply(
-    $captured_args,
-    {
-        zilla => shallow($tzil),
-        plugin_name => 'via [RewriteVersion::Transitional]',
-        some_other_arg => 'oh hai',
-    },
-    'extra plugin arguments were passed along to the fallback version provider',
-);
-
 
 my $contents = path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8;
 is(
     $contents,
-    "package Foo;\n\nour \$VERSION = '0.005';\n\n1;\n",
-    '$VERSION assignment was added to the module',
+    "package Foo;\n\nour \$VERSION = '0.002';\n\n1;\n",
+    '.pm contents are left unchanged',
 );
 
 cmp_deeply(
@@ -84,8 +63,7 @@ cmp_deeply(
                     class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
                     config => {
                         'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
-                            fallback_version_provider => '=inc::SimpleVersionProvider',
-                            _fallback_version_provider_args => { some_other_arg => 'oh hai' },
+                            fallback_version_provider => 'not used',
                         },
                         'Dist::Zilla::Plugin::RewriteVersion' => {
                             skip_version_provider => bool(0),
