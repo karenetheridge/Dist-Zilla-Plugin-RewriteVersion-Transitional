@@ -11,6 +11,11 @@ sub insert_version
 {
     my ($self, $file, $version) = @_;
 
+    # $version is the bumped post-release version; fool the plugins into using
+    # it rather than the version we released with
+    my $release_version = $self->zilla->version;
+    $self->zilla->version($version) if $release_version ne $version;
+
     my $content;
     if ($file->content =~ /# VERSION/)
     {
@@ -43,6 +48,9 @@ sub insert_version
 
     $self->log_debug([ 'adding $VERSION assignment to %s', $file->name ]);
     $file->content($content);
+
+    # restore zilla version, in case other plugins still need it
+    $self->zilla->version($release_version) if $release_version ne $version;
 
     return 1;
 }

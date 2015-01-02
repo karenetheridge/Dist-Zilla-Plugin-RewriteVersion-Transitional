@@ -7,7 +7,8 @@ package Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional;
 
 use Moose;
 extends 'Dist::Zilla::Plugin::BumpVersionAfterRelease';
-
+with 'Dist::Zilla::Role::InsertVersion';
+use Path::Tiny;
 use namespace::autoclean;
 
 around dump_config => sub
@@ -20,6 +21,32 @@ around dump_config => sub
     };
 
     return $config;
+};
+
+around rewrite_version => sub
+{
+    my $orig = shift;
+    my $self = shift;
+    my ($file, $version) = @_;
+
+    # update existing our $VERSION = '...'; entry
+    return 1 if $self->$orig($file, $version);
+
+    # note that $file is the file in the distribution, whereas we want to
+    # modify the file in the source repository.
+    my $source_file = Dist::Zilla::File::OnDisk->new(
+        name => $file->name,
+        encoding => $file->encoding,
+    );
+
+    if ($self->insert_version($source_file, $version))
+    {
+        # append+truncate to preserve file mode
+        path($source_file->name)->append_raw({ truncate => 1 }, $source_file->encoded_content);
+        return 1;
+    }
+
+    return;
 };
 
 __PACKAGE__->meta->make_immutable;

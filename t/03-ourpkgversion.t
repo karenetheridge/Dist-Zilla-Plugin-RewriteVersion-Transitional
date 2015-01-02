@@ -38,6 +38,8 @@ my $tzil = Builder->from_config(
                         some_other_arg => 'oh hai',
                     },
                 ],
+                [ FakeRelease => ],
+                [ 'BumpVersionAfterRelease::Transitional' => { } ],
             ),
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
@@ -52,9 +54,9 @@ FOO
 
 $tzil->chrome->logger->set_debug(1);
 is(
-    exception { $tzil->build },
+    exception { $tzil->release },
     undef,
-    'build proceeds normally',
+    'build and release proceeds normally',
 );
 
 is(
@@ -74,11 +76,16 @@ cmp_deeply(
 );
 
 
-my $contents = path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8;
 is(
-    $contents,
+    path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8,
     "package Foo;\n# ABSTRACT: oh hai\n    our \$VERSION = '0.005';\n\n1;\n",
     '$VERSION assignment was added to the module, where [OurPkgVersion] would normally insert it',
+);
+
+is(
+    path($tzil->tempdir, qw(source lib Foo.pm))->slurp_utf8,
+    "package Foo;\n# ABSTRACT: oh hai\n    our \$VERSION = '0.006';\n\n1;\n",
+    '.pm contents in source module saw the incremented version inserted',
 );
 
 cmp_deeply(
@@ -99,6 +106,20 @@ cmp_deeply(
                         #},
                     },
                     name => 'RewriteVersion::Transitional',
+                    version => ignore,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional',
+                    config => {
+                        'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional' => {
+                        },
+                        # TODO, in [BumpVersionAfterRelease]
+                        #'Dist::Zilla::Plugin::BumpVersionAfterRelease' => {
+                        #    global => bool(0),
+                        #    munge_makefile_pl => bool(0),
+                        #},
+                    },
+                    name => 'BumpVersionAfterRelease::Transitional',
                     version => ignore,
                 },
             ),
