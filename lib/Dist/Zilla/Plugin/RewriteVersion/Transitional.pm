@@ -7,6 +7,7 @@ package Dist::Zilla::Plugin::RewriteVersion::Transitional;
 
 use Moose;
 extends 'Dist::Zilla::Plugin::RewriteVersion';
+with 'Dist::Zilla::Role::InsertVersion';
 
 use Moose::Util::TypeConstraints;
 use Dist::Zilla::Util;
@@ -83,40 +84,7 @@ around rewrite_version => sub
     # update existing our $VERSION = '...'; entry
     return 1 if $self->$orig($file, $version);
 
-    my $content;
-    if ($file->content =~ /# VERSION/)
-    {
-        require Dist::Zilla::Plugin::OurPkgVersion;
-        my $ourpkgversion = Dist::Zilla::Plugin::OurPkgVersion->new(
-            zilla => $self->zilla,
-            plugin_name => 'fallback version munger, via [RewriteVersion::Transitional]',
-        );
-
-        $ourpkgversion->munge_file($file);
-        $content = $file->content;
-        my $trial = $self->zilla->is_trial;
-        $content =~ s/ # TRIAL VERSION/ # TRIAL/mg if $trial;
-        $content =~ s/ # VERSION$//mg if not $trial;
-    }
-    else
-    {
-        require Dist::Zilla::Plugin::PkgVersion;
-        my $pkgversion = Dist::Zilla::Plugin::PkgVersion->new(
-            zilla => $self->zilla,
-            plugin_name => 'fallback version munger, via [RewriteVersion::Transitional]',
-            die_on_existing_version => 1,
-            die_on_line_insertion => 0,
-        );
-
-        $pkgversion->munge_perl($file);
-        $content = $file->content;
-        $content =~ s/^\$\S+::(VERSION = '$version';)/our \$$1/mg;
-    }
-
-    $self->log_debug([ 'adding $VERSION assignment to %s', $file->name ]);
-    $file->content($content);
-
-    return 1;
+    return $self->insert_version($file, $version);
 };
 
 __PACKAGE__->meta->make_immutable;
