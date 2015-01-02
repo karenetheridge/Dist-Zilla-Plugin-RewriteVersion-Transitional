@@ -26,6 +26,8 @@ my $tzil = Builder->from_config(
                         fallback_version_provider => 'not used',
                     },
                 ],
+                [ FakeRelease => ],
+                [ 'BumpVersionAfterRelease::Transitional' => { } ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n\nour \$VERSION = '0.002';\n\n1;\n",
         },
@@ -34,9 +36,9 @@ my $tzil = Builder->from_config(
 
 $tzil->chrome->logger->set_debug(1);
 is(
-    exception { $tzil->build },
+    exception { $tzil->release },
     undef,
-    'build proceeds normally',
+    'build and release proceeds normally',
 );
 
 is(
@@ -45,11 +47,16 @@ is(
     'version was properly extracted from .pm file',
 );
 
-my $contents = path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8;
 is(
-    $contents,
+    path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8,
     "package Foo;\n\nour \$VERSION = '0.002';\n\n1;\n",
-    '.pm contents are left unchanged',
+    '.pm contents in build are left unchanged',
+);
+
+is(
+    path($tzil->tempdir, qw(source lib Foo.pm))->slurp_utf8,
+    "package Foo;\n\nour \$VERSION = '0.003';\n\n1;\n",
+    '.pm contents in source saw the version incremented',
 );
 
 cmp_deeply(
@@ -70,6 +77,20 @@ cmp_deeply(
                         #},
                     },
                     name => 'RewriteVersion::Transitional',
+                    version => ignore,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional',
+                    config => {
+                        'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional' => {
+                        },
+                        # TODO, in [BumpVersionAfterRelease]
+                        #'Dist::Zilla::Plugin::BumpVersionAfterRelease' => {
+                        #    global => bool(0),
+                        #    munge_makefile_pl => bool(0),
+                        #},
+                    },
+                    name => 'BumpVersionAfterRelease::Transitional',
                     version => ignore,
                 },
             ),

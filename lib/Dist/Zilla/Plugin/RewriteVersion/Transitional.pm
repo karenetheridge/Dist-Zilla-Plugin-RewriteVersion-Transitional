@@ -140,8 +140,9 @@ This is a L<Dist::Zilla> plugin that subclasses
 L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion>, to allow plugin
 bundles to transition from L<[PkgVersion]|Dist::Zilla::Plugin::PkgVersion> or
 L<[OurPkgVersion]|Dist::Zilla::Plugin::OurPkgVersion> to
-L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion> without having to
-manually edit the F<dist.ini> or any F<.pm> files.
+L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion>
+and L<[BumpVersionAfterRelease]|Dist::Zilla::Plugin::BumpVersionAfterRelease>
+without having to manually edit the F<dist.ini> or any F<.pm> files.
 
 =head2 Determining the distribution version
 
