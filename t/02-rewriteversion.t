@@ -65,9 +65,10 @@ cmp_deeply(
                         'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
                             fallback_version_provider => 'not used',
                         },
-                        'Dist::Zilla::Plugin::RewriteVersion' => {
-                            skip_version_provider => bool(0),
-                        },
+                        # TODO, in [RewriteVersion]
+                        #'Dist::Zilla::Plugin::RewriteVersion' => {
+                        #    skip_version_provider => bool(0),
+                        #},
                     },
                     name => 'RewriteVersion::Transitional',
                     version => ignore,

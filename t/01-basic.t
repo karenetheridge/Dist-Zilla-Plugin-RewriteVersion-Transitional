@@ -87,9 +87,10 @@ cmp_deeply(
                             fallback_version_provider => '=inc::SimpleVersionProvider',
                             _fallback_version_provider_args => { some_other_arg => 'oh hai' },
                         },
-                        'Dist::Zilla::Plugin::RewriteVersion' => {
-                            skip_version_provider => bool(0),
-                        },
+                        # TODO, in [RewriteVersion]
+                        #'Dist::Zilla::Plugin::RewriteVersion' => {
+                        #    skip_version_provider => bool(0),
+                        #},
                     },
                     name => 'RewriteVersion::Transitional',
                     version => ignore,
