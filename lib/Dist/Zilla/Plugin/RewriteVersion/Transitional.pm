@@ -28,7 +28,7 @@ has _fallback_version_provider_obj => (
         my $self = shift;
         Dist::Zilla::Util->expand_config_package_name($self->fallback_version_provider)->new(
             zilla => $self->zilla,
-            plugin_name => 'via [RewriteVersion::Transitional]',
+            plugin_name => 'fallback version provider, via [RewriteVersion::Transitional]',
             %{ $self->_fallback_version_provider_args },
         );
     },

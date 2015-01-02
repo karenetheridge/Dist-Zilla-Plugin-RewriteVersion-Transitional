@@ -61,7 +61,7 @@ cmp_deeply(
     $captured_args,
     {
         zilla => shallow($tzil),
-        plugin_name => 'via [RewriteVersion::Transitional]',
+        plugin_name => 'fallback version provider, via [RewriteVersion::Transitional]',
         some_other_arg => 'oh hai',
     },
     'extra plugin arguments were passed along to the fallback version provider',
