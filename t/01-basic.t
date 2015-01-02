@@ -8,8 +8,6 @@ use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 
-local $TODO = 'not yet done!';
-
 my $captured_args;
 {
     package inc::SimpleVersionProvider;
@@ -39,7 +37,12 @@ my $tzil = Builder->from_config(
                     },
                 ],
             ),
-            path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
+            path(qw(source lib Foo.pm)) => <<FOO,
+package Foo;
+# ABSTRACT: oh hai
+
+1;
+FOO
         },
     },
 );
@@ -71,8 +74,8 @@ cmp_deeply(
 my $contents = path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8;
 is(
     $contents,
-    "package Foo;\n\nour \$VERSION = '0.005';\n\n1;\n",
-    '$VERSION assignment was added to the module',
+    "package Foo;\n# ABSTRACT: oh hai\nour \$VERSION = '0.005';\n1;\n",
+    '$VERSION assignment was added to the module, where [PkgVersion] would normally insert it',
 );
 
 cmp_deeply(

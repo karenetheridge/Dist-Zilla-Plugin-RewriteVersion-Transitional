@@ -8,8 +8,6 @@ use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 
-local $TODO = 'not yet done!';
-
 my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },
     {
@@ -64,6 +62,7 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
                             fallback_version_provider => 'not used',
+                            _fallback_version_provider_args => { },
                         },
                         # TODO, in [RewriteVersion]
                         #'Dist::Zilla::Plugin::RewriteVersion' => {

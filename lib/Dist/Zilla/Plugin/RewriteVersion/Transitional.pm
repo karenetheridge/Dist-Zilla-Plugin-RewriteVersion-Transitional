@@ -10,6 +10,7 @@ extends 'Dist::Zilla::Plugin::RewriteVersion';
 
 use Moose::Util::TypeConstraints;
 use Dist::Zilla::Util;
+use Module::Runtime 'use_module';
 use namespace::autoclean;
 
 has fallback_version_provider => (
@@ -26,7 +27,7 @@ has _fallback_version_provider_obj => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        Dist::Zilla::Util->expand_config_package_name($self->fallback_version_provider)->new(
+        use_module(Dist::Zilla::Util->expand_config_package_name($self->fallback_version_provider))->new(
             zilla => $self->zilla,
             plugin_name => 'fallback version provider, via [RewriteVersion::Transitional]',
             %{ $self->_fallback_version_provider_args },
@@ -79,7 +80,25 @@ around rewrite_version => sub
     my $self = shift;
     my ($file, $version) = @_;
 
-    # TODO!
+    # update existing our $VERSION = '...'; entry
+    return 1 if $self->$orig($file, $version);
+
+    require Dist::Zilla::Plugin::PkgVersion;
+    my $pkgversion = Dist::Zilla::Plugin::PkgVersion->new(
+        zilla => $self->zilla,
+        plugin_name => 'fallback version munger, via [RewriteVersion::Transitional]',
+        die_on_existing_version => 1,
+        die_on_line_insertion => 0,
+    );
+
+    $pkgversion->munge_perl($file);
+    my $content = $file->content;
+    $content =~ s/^\$\S+::(VERSION = '$version';)/our \$$1/mg;
+
+    $self->log_debug([ 'adding $VERSION assignment to %s', $file->name ]);
+    $file->content($content);
+
+    return 1;
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - first working version
 
 0.001     2014-12-31 20:55:07Z (TRIAL RELEASE)
           - Initial release.
