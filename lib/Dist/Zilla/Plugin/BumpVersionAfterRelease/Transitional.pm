@@ -4,6 +4,7 @@ package Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional;
 # ABSTRACT: ease the transition to [BumpVersionAfterRelease] in your distribution
 # KEYWORDS: plugin version rewrite munge module
 # vim: set ts=8 sw=4 tw=78 et :
+
 our $VERSION = '0.003';
 use Moose;
 extends 'Dist::Zilla::Plugin::BumpVersionAfterRelease';
