@@ -7,6 +7,12 @@ package # hide from PAUSE
 use Moose::Role;
 use namespace::autoclean;
 
+=pod
+
+=for Pod::Coverage insert_version
+
+=cut
+
 sub insert_version
 {
     my ($self, $file, $version) = @_;
