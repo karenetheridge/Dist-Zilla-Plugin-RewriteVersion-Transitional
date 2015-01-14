@@ -32,6 +32,7 @@ has _pkgversion => (
     default => sub {
         my $self = shift;
         require Dist::Zilla::Plugin::PkgVersion;
+        Dist::Zilla::Plugin::PkgVersion->VERSION('5.010');  # one line, no braces
         Dist::Zilla::Plugin::PkgVersion->new(
             zilla => $self->zilla,
             plugin_name => 'fallback version munger, via [RewriteVersion::Transitional]',
