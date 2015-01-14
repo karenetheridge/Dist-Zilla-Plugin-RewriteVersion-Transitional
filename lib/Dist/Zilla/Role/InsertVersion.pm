@@ -68,7 +68,7 @@ sub insert_version
         $content =~ s/^\$\S+::(VERSION = '$version';)/our \$$1/mg;
     }
 
-    $self->log_debug([ 'adding $VERSION assignment to %s', $file->name ]);
+    $self->log([ 'adding $VERSION assignment to %s', $file->name ]);
     $file->content($content);
 
     # restore zilla version, in case other plugins still need it

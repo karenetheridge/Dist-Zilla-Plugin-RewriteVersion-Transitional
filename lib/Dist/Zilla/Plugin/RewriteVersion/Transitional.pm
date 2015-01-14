@@ -76,7 +76,7 @@ around provide_version => sub
     my $version = $self->$orig(@_);
     return $version if defined $version;
 
-    $self->log_debug([ 'no version found in environment or file; falling back to %s', $self->fallback_version_provider ]);
+    $self->log([ 'no version found in environment or file; falling back to %s', $self->fallback_version_provider ]);
     return $self->_fallback_version_provider_obj->provide_version;
 };
 
