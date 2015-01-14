@@ -35,6 +35,7 @@ has _fallback_version_provider_obj => (
             %{ $self->_fallback_version_provider_args },
         );
     },
+    predicate => '_using_fallback_version_provider',
 );
 
 around BUILDARGS => sub
@@ -58,6 +59,9 @@ around dump_config => sub
     $config->{+__PACKAGE__} = {
         map { $_ => $self->$_ } qw(fallback_version_provider _fallback_version_provider_args),
     };
+
+    $config->{ $self->fallback_version_provider } = $self->_fallback_version_provider_obj->dump_config
+        if $self->_using_fallback_version_provider;
 
     return $config;
 };

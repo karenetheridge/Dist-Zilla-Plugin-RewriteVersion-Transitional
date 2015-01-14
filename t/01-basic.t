@@ -101,6 +101,7 @@ cmp_deeply(
                         #'Dist::Zilla::Plugin::RewriteVersion' => {
                         #    skip_version_provider => bool(0),
                         #},
+                        '=inc::SimpleVersionProvider' => { },
                     },
                     name => 'RewriteVersion::Transitional',
                     version => ignore,
