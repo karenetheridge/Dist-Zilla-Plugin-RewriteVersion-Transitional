@@ -21,7 +21,7 @@ has _ourpkgversion => (
         require Dist::Zilla::Plugin::OurPkgVersion;
         Dist::Zilla::Plugin::OurPkgVersion->new(
             zilla => $self->zilla,
-            plugin_name => 'fallback version munger, via [RewriteVersion::Transitional]',
+            plugin_name => 'OurPkgVersion, via RewriteVersion::Transitional',
         );
     },
     predicate => '_used_ourpkgversion',
@@ -35,7 +35,7 @@ has _pkgversion => (
         Dist::Zilla::Plugin::PkgVersion->VERSION('5.010');  # one line, no braces
         Dist::Zilla::Plugin::PkgVersion->new(
             zilla => $self->zilla,
-            plugin_name => 'fallback version munger, via [RewriteVersion::Transitional]',
+            plugin_name => 'PkgVersion, via RewriteVersion::Transitional',
             die_on_existing_version => 1,
             die_on_line_insertion => 0,
         );
