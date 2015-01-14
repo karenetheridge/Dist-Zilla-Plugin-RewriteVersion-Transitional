@@ -149,6 +149,9 @@ provider if the version was not already set with the C<V> environment
 variable.  Not used if
 L<Dist::Zilla::Plugin::RewriteVersion/skip_version_provider> is true.
 
+Don't forget to add this plugin as a runtime-requires prerequisite in your
+plugin bundle!
+
 =head1 SUPPORT
 
 =for stopwords irc
