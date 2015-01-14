@@ -105,6 +105,7 @@ cmp_deeply(
                         #    skip_version_provider => bool(0),
                         #},
                         '=inc::SimpleVersionProvider' => { },
+                        'Dist::Zilla::Plugin::OurPkgVersion' => superhashof({}),
                     },
                     name => 'RewriteVersion::Transitional',
                     version => ignore,

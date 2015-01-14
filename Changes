@@ -1,8 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-          - include the configs for the fallback_version_provider, when used,
-            in dumped configs
+          - include the configs for the fallback_version_provider,
+            [PkgVersion] and/or [OurPkgVersion], when used, in dumped
+            configs
 
 0.002     2015-01-13 06:06:52Z
           - first working version
