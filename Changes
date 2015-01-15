@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - include the configs for the fallback_version_provider,
             [PkgVersion] and/or [OurPkgVersion], when used, in dumped
             configs
+          - avoid misleading log messages when nothing was actually modified
+            in the file
 
 0.002     2015-01-13 06:06:52Z
           - first working version

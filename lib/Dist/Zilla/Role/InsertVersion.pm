@@ -52,24 +52,32 @@ sub insert_version
     my $release_version = $self->zilla->version;
     $self->zilla->version($version) if $release_version ne $version;
 
-    my $content;
-    if ($file->content =~ /# VERSION/)
-    {
-        $self->_ourpkgversion->munge_file($file);
-        $content = $file->content;
-        my $trial = $self->zilla->is_trial;
-        $content =~ s/ # TRIAL VERSION/ # TRIAL/mg if $trial;
-        $content =~ s/ # VERSION$//mg if not $trial;
-    }
-    else
-    {
-        $self->_pkgversion->munge_perl($file);
-        $content = $file->content;
-        $content =~ s/^\$\S+::(VERSION = '$version';)/our \$$1/mg;
-    }
+    MUNGE_FILE: {
+        my $content = $file->content;
+        if ($content =~ /# VERSION/)
+        {
+            my $orig_content = $content;
+            $self->_ourpkgversion->munge_file($file);
+            $content = $file->content;
+            last MUNGE_FILE if $content eq $orig_content;
 
-    $self->log([ 'adding $VERSION assignment to %s', $file->name ]);
-    $file->content($content);
+            my $trial = $self->zilla->is_trial;
+            $content =~ s/ # TRIAL VERSION/ # TRIAL/mg if $trial;
+            $content =~ s/ # VERSION$//mg if not $trial;
+        }
+        else
+        {
+            my $orig_content = $content;
+            $self->_pkgversion->munge_perl($file);
+            $content = $file->content;
+            last MUNGE_FILE if $content eq $orig_content;
+
+            $content =~ s/^\$\S+::(VERSION = '$version';)/our \$$1/mg;
+        }
+
+        $self->log([ 'inserting $VERSION assignment into %s', $file->name ]);
+        $file->content($content);
+    }
 
     # restore zilla version, in case other plugins still need it
     $self->zilla->version($release_version) if $release_version ne $version;

@@ -127,6 +127,15 @@ cmp_deeply(
     'plugin metadata, including dumped configs',
 ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
+cmp_deeply(
+    $tzil->log_messages,
+    superbagof(
+        '[RewriteVersion::Transitional] inserting $VERSION assignment into lib/Foo.pm',
+        '[BumpVersionAfterRelease::Transitional] inserting $VERSION assignment into lib/Foo.pm',
+    ),
+    'got appropriate log messages about inserting new $VERSION statements',
+);
+
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
 
