@@ -134,8 +134,8 @@ C<$VERSION> declaration, this plugin will add one. If one is already present,
 it leaves it alone, acting just as
 L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion> would.
 
-You would then use L<[BumpVersionAfterRelease]|Dist::Zilla::Plugin::BumpVersionAfterRelease>
-to increment the C<$VERSION> in the F<.pm> files in the repository, as normal.
+You would then use L<[BumpVersionAfterRelease::Transitional]|Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional>
+to increment the C<$VERSION> in the F<.pm> files in the repository.
 
 =head1 CONFIGURATION OPTIONS
 
