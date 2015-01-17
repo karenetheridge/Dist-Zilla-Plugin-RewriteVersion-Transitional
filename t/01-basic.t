@@ -80,8 +80,9 @@ is(
     '$VERSION assignment was added to the build module, where [PkgVersion] would normally insert it',
 );
 
+my $source_file = path($tzil->tempdir, qw(source lib Foo.pm));
 is(
-    path($tzil->tempdir, qw(source lib Foo.pm))->slurp_utf8,
+    $source_file->slurp_utf8,
     "package Foo;\n# ABSTRACT: oh hai\nour \$VERSION = '0.006';\n1;\n",
     '.pm contents in source module saw the incremented version inserted',
 );
@@ -132,7 +133,7 @@ cmp_deeply(
     $tzil->log_messages,
     superbagof(
         '[RewriteVersion::Transitional] inserting $VERSION assignment into lib/Foo.pm',
-        '[BumpVersionAfterRelease::Transitional] inserting $VERSION assignment into lib/Foo.pm',
+        '[BumpVersionAfterRelease::Transitional] inserting $VERSION assignment into ' . $source_file,
     ),
     'got appropriate log messages about inserting new $VERSION statements',
 );

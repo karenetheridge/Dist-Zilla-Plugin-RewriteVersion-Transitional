@@ -36,7 +36,7 @@ around rewrite_version => sub
     # note that $file is the file in the distribution, whereas we want to
     # modify the file in the source repository.
     my $source_file = Dist::Zilla::File::OnDisk->new(
-        name => $file->name,
+        name => path($file->_original_name)->stringify,
         encoding => $file->encoding,
     );
 

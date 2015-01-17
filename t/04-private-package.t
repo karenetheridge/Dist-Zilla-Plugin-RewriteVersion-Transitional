@@ -78,15 +78,16 @@ cmp_deeply(
     $tzil->log_messages,
     superbagof(
         '[RewriteVersion::Transitional] inserting $VERSION assignment into lib/Foo.pm',
-        '[BumpVersionAfterRelease::Transitional] inserting $VERSION assignment into lib/Foo.pm',
+        '[BumpVersionAfterRelease::Transitional] inserting $VERSION assignment into ' . path($tzil->tempdir, qw(source lib Foo.pm)),
+
     ),
     'got appropriate log messages about inserting new $VERSION statement into Foo',
 );
 
 ok(
-    ! grep {
-        m{^\[(RewriteVersion|BumpVersionAfterRelease)::Transitional\] inserting \$VERSION assignment into lib/Foo/Bar.pm$}
-    } @{ $tzil->log_messages },
+    (! grep {
+        m{^\[(RewriteVersion|BumpVersionAfterRelease)::Transitional\] inserting \$VERSION assignment into .*Bar.pm$}
+    } @{ $tzil->log_messages }),
     'did not log a message about inserting a $VERSION statement into private Foo::Bar',
 );
 
