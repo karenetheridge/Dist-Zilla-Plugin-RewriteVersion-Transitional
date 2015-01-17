@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - avoid dying if [OurPkgVersion] is not installed
+          - accomodate older [RewriteVersion], before skip_version_provider
+            was added
 
 0.003     2015-01-17 03:55:55Z
           - include the configs for the fallback_version_provider,

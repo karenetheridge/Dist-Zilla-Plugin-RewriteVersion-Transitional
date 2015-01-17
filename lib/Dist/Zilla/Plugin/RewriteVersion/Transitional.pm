@@ -71,7 +71,7 @@ around provide_version => sub
     my $orig = shift;
     my $self = shift;
 
-    return if $self->skip_version_provider;
+    return if $self->can('skip_version_provider') and $self->skip_version_provider;
 
     my $version = $self->$orig(@_);
     return $version if defined $version;
