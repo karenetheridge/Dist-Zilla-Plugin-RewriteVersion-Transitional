@@ -45,7 +45,7 @@ my $tzil = Builder->from_config(
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
 # ABSTRACT: oh hai
-    # VERSION
+    \x{23} VERSION
 
 1;
 FOO

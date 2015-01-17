@@ -54,7 +54,7 @@ sub insert_version
 
     MUNGE_FILE: {
         my $content = $file->content;
-        if ($content =~ /# VERSION/)
+        if ($content =~ /\x{23} VERSION/)
         {
             my $orig_content = $content;
             $self->_ourpkgversion->munge_file($file);
@@ -63,7 +63,7 @@ sub insert_version
 
             my $trial = $self->zilla->is_trial;
             $content =~ s/ # TRIAL VERSION/ # TRIAL/mg if $trial;
-            $content =~ s/ # VERSION$//mg if not $trial;
+            $content =~ s/ \x{23} VERSION$//mg if not $trial;
         }
         else
         {
