@@ -18,7 +18,6 @@ has _ourpkgversion => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        require Dist::Zilla::Plugin::OurPkgVersion;
         Dist::Zilla::Plugin::OurPkgVersion->new(
             zilla => $self->zilla,
             plugin_name => 'OurPkgVersion, via RewriteVersion::Transitional',
@@ -54,7 +53,7 @@ sub insert_version
 
     MUNGE_FILE: {
         my $content = $file->content;
-        if ($content =~ /\x{23} VERSION/)
+        if ($content =~ /\x{23} VERSION/ and eval { require Dist::Zilla::Plugin::OurPkgVersion; 1 })
         {
             my $orig_content = $content;
             $self->_ourpkgversion->munge_file($file);
