@@ -13,6 +13,7 @@ use Path::Tiny;
     use Moose;
     with 'Dist::Zilla::Role::VersionProvider';
     sub provide_version { '0.005' }
+    $INC{'inc/SimpleVersionProvider.pm'} = __FILE__;
 }
 
 my $tzil = Builder->from_config(

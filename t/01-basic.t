@@ -15,6 +15,7 @@ my $captured_args;
     with 'Dist::Zilla::Role::VersionProvider';
     sub provide_version { '0.005' }
     sub BUILD { $captured_args = $_[1] }
+    $INC{'inc/SimpleVersionProvider.pm'} = __FILE__;
 }
 
 my $tzil = Builder->from_config(
