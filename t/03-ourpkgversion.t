@@ -79,7 +79,6 @@ cmp_deeply(
     'extra plugin arguments were passed along to the fallback version provider',
 );
 
-
 is(
     path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8,
     "package Foo;\n# ABSTRACT: oh hai\n    our \$VERSION = '0.005';\n\n1;\n",
