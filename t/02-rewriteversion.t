@@ -30,7 +30,7 @@ my $tzil = Builder->from_config(
                     },
                 ],
                 [ FakeRelease => ],
-                [ 'BumpVersionAfterRelease::Transitional' => { } ],
+                [ 'BumpVersionAfterRelease::Transitional' ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n\nour \$VERSION = '0.002';\n\n1;\n",
         },

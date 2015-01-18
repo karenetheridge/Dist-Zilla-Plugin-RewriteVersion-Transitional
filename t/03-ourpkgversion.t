@@ -43,7 +43,7 @@ my $tzil = Builder->from_config(
                     },
                 ],
                 [ FakeRelease => ],
-                [ 'BumpVersionAfterRelease::Transitional' => { } ],
+                [ 'BumpVersionAfterRelease::Transitional' ],
             ),
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
