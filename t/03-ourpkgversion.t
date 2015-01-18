@@ -10,6 +10,9 @@ use Path::Tiny;
 
 use Test::Requires 'Dist::Zilla::Plugin::OurPkgVersion';
 
+delete $ENV{TRIAL};
+delete $ENV{V};
+
 my $captured_args;
 {
     package inc::SimpleVersionProvider;

@@ -8,6 +8,9 @@ use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 
+delete $ENV{TRIAL};
+delete $ENV{V};
+
 my $captured_args;
 {
     package inc::SimpleVersionProvider;
