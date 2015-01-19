@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::RewriteVersion::Transitional - ease the transition to [Rewr
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.004     2015-01-19 03:49:55Z
           - avoid dying if [OurPkgVersion] is not installed
           - accomodate older [RewriteVersion], before skip_version_provider
             was added
