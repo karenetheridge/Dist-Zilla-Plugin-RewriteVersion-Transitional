@@ -46,7 +46,7 @@ around BUILDARGS => sub
     my $args = $self->$orig(@_);
 
     my %extra_args = %$args;
-    delete @extra_args{qw(zilla plugin_name fallback_version_provider skip_version_provider)};
+    delete @extra_args{ map { $_->name } $self->meta->get_all_attributes };
 
     return +{ %$args, _fallback_version_provider_args => \%extra_args };
 };
