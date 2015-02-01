@@ -6,6 +6,7 @@ package Dist::Zilla::Plugin::RewriteVersion::Transitional;
 # vim: set ts=8 sw=4 tw=78 et :
 
 our $VERSION = '0.005';
+
 use Moose;
 extends 'Dist::Zilla::Plugin::RewriteVersion';
 with 'Dist::Zilla::Role::InsertVersion';
