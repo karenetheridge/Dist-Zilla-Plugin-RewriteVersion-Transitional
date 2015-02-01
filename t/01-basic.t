@@ -96,7 +96,7 @@ cmp_deeply(
             plugins => supersetof(
                 {
                     class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
-                    config => {
+                    config => superhashof({
                         'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
                             fallback_version_provider => '=inc::SimpleVersionProvider',
                             _fallback_version_provider_args => { some_other_arg => 'oh hai' },
@@ -107,13 +107,13 @@ cmp_deeply(
                         #},
                         '=inc::SimpleVersionProvider' => { },
                         'Dist::Zilla::Plugin::PkgVersion' => superhashof({}),
-                    },
+                    }),
                     name => 'RewriteVersion::Transitional',
                     version => ignore,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional',
-                    config => {
+                    config => superhashof({
                         'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional' => {
                         },
                         # TODO, in [BumpVersionAfterRelease]
@@ -121,7 +121,7 @@ cmp_deeply(
                         #    global => bool(0),
                         #    munge_makefile_pl => bool(0),
                         #},
-                    },
+                    }),
                     name => 'BumpVersionAfterRelease::Transitional',
                     version => ignore,
                 },
