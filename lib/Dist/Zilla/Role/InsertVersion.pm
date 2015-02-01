@@ -4,6 +4,8 @@ package # hide from PAUSE
     Dist::Zilla::Role::InsertVersion;
 # vim: set ts=8 sw=4 tw=78 et :
 
+our $VERSION = '0.005';
+
 use Moose::Role;
 use namespace::autoclean;
 
