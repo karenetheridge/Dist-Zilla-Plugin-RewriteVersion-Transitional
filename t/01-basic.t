@@ -134,8 +134,8 @@ cmp_deeply(
 cmp_deeply(
     $tzil->log_messages,
     superbagof(
-        '[RewriteVersion::Transitional] inserting $VERSION assignment into lib/Foo.pm',
-        '[BumpVersionAfterRelease::Transitional] inserting $VERSION assignment into ' . $source_file,
+        '[RewriteVersion::Transitional] inserted $VERSION statement into lib/Foo.pm',
+        '[BumpVersionAfterRelease::Transitional] inserted $VERSION statement into ' . $source_file,
     ),
     'got appropriate log messages about inserting new $VERSION statements',
 );
