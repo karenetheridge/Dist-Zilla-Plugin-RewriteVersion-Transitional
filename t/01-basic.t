@@ -109,7 +109,7 @@ cmp_deeply(
                         'Dist::Zilla::Plugin::PkgVersion' => superhashof({}),
                     }),
                     name => 'RewriteVersion::Transitional',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::RewriteVersion::Transitional->VERSION,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional',
@@ -123,7 +123,7 @@ cmp_deeply(
                         #},
                     }),
                     name => 'BumpVersionAfterRelease::Transitional',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::RewriteVersion::Transitional->VERSION,
                 },
             ),
         }),
