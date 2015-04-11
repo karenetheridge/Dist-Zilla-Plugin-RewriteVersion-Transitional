@@ -42,7 +42,7 @@ my $tzil = Builder->from_config(
             ),
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
-# ABSTRACT: oh hai
+# ABSTRACT: stuff
 
 1;
 FOO

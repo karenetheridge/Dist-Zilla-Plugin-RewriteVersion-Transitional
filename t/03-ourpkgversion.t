@@ -47,7 +47,7 @@ my $tzil = Builder->from_config(
             ),
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
-# ABSTRACT: oh hai
+# ABSTRACT: stuff
     \x{23} VERSION
 
 1;
@@ -81,13 +81,13 @@ cmp_deeply(
 
 is(
     path($tzil->tempdir, qw(build lib Foo.pm))->slurp_utf8,
-    "package Foo;\n# ABSTRACT: oh hai\n    our \$VERSION = '0.005';\n\n1;\n",
+    "package Foo;\n# ABSTRACT: stuff\n    our \$VERSION = '0.005';\n\n1;\n",
     '$VERSION assignment was added to the module, where [OurPkgVersion] would normally insert it',
 );
 
 is(
     path($tzil->tempdir, qw(source lib Foo.pm))->slurp_utf8,
-    "package Foo;\n# ABSTRACT: oh hai\n    our \$VERSION = '0.006';\n\n1;\n",
+    "package Foo;\n# ABSTRACT: stuff\n    our \$VERSION = '0.006';\n\n1;\n",
     '.pm contents in source module saw the incremented version inserted',
 );
 
