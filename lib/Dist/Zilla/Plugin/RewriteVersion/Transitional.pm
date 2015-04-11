@@ -11,7 +11,7 @@ use Moose;
 extends 'Dist::Zilla::Plugin::RewriteVersion';
 with 'Dist::Zilla::Role::InsertVersion';
 
-use Moose::Util::TypeConstraints;
+use Moose::Util::TypeConstraints 'role_type';
 use Dist::Zilla::Util;
 use Module::Runtime 'use_module';
 use namespace::autoclean;
