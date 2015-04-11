@@ -35,7 +35,6 @@ my $tzil = Builder->from_config(
                 [ MetaConfig => ],
                 [ 'RewriteVersion::Transitional' => {
                         fallback_version_provider => '=inc::SimpleVersionProvider',
-                        some_other_arg => 'oh hai',
                     },
                 ],
                 [ FakeRelease => ],
