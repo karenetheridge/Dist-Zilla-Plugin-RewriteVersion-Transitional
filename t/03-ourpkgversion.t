@@ -105,6 +105,7 @@ cmp_deeply(
                         },
                         # TODO, in [RewriteVersion]
                         #'Dist::Zilla::Plugin::RewriteVersion' => {
+                        #    global => bool(0),
                         #    skip_version_provider => bool(0),
                         #},
                         '=inc::SimpleVersionProvider' => { },
