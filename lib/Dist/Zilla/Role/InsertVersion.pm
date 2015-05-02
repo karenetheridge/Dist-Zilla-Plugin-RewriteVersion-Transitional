@@ -7,6 +7,7 @@ package # hide from PAUSE
 our $VERSION = '0.005';
 
 use Moose::Role;
+use Scalar::Util 'blessed';
 use namespace::autoclean;
 
 =pod
@@ -20,9 +21,10 @@ has _ourpkgversion => (
     lazy => 1,
     default => sub {
         my $self = shift;
+        (my $name = blessed($self)) =~ s/^Dist::Zilla::Plugin:://;
         Dist::Zilla::Plugin::OurPkgVersion->new(
             zilla => $self->zilla,
-            plugin_name => 'OurPkgVersion, via RewriteVersion::Transitional',
+            plugin_name => 'OurPkgVersion, via ' . $name,
         );
     },
     predicate => '_used_ourpkgversion',
@@ -34,9 +36,10 @@ has _pkgversion => (
         my $self = shift;
         require Dist::Zilla::Plugin::PkgVersion;
         Dist::Zilla::Plugin::PkgVersion->VERSION('5.010');  # one line, no braces
+        (my $name = blessed($self)) =~ s/^Dist::Zilla::Plugin:://;
         Dist::Zilla::Plugin::PkgVersion->new(
             zilla => $self->zilla,
-            plugin_name => 'PkgVersion, via RewriteVersion::Transitional',
+            plugin_name => 'PkgVersion, via ' . $name,
             die_on_existing_version => 1,
             die_on_line_insertion => 0,
         );
