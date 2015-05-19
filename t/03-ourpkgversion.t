@@ -10,6 +10,7 @@ use Path::Tiny;
 
 use Test::Requires 'Dist::Zilla::Plugin::OurPkgVersion';
 
+delete $ENV{RELEASE_STATUS};
 delete $ENV{TRIAL};
 delete $ENV{V};
 
