@@ -49,7 +49,7 @@ has _pkgversion => (
 
 sub insert_version
 {
-    my ($self, $file, $version) = @_;
+    my ($self, $file, $version, $trial) = @_;
 
     # $version is the bumped post-release version; fool the plugins into using
     # it rather than the version we released with
@@ -66,9 +66,10 @@ sub insert_version
             $content = $file->content;
             last MUNGE_FILE if $content eq $orig_content;
 
-            my $trial = $self->zilla->is_trial;
-            $replaced = $trial
-                ? $content =~ s/ # TRIAL VERSION/ # TRIAL/mg
+            # [OurPkgVersion] uses $self->zilla->is_trial, which we cannot override
+            $replaced =
+                  ($self->zilla->is_trial xor $trial) ? $content =~ s/ # TRIAL VERSION//mg
+                : $trial ? $content =~ s/ # TRIAL VERSION/ # TRIAL/mg
                 : $content =~ s/ # VERSION$//mg;
         }
         else
@@ -78,7 +79,10 @@ sub insert_version
             $content = $file->content;
             last MUNGE_FILE if $content eq $orig_content;
 
-            $replaced = $content =~ s/^\$\S+::(VERSION = '$version';)/our \$$1/mg;
+            # [PkgVersion] uses $self->zilla->is_trial, which we cannot override
+            my $trial_str = ($self->zilla->is_trial xor $trial) ? ' # TRIAL' : '';
+
+            $replaced = $content =~ s/^\$\S+::(VERSION = '$version';)$trial_str/our \$$1/mg;
         }
 
         $self->log(

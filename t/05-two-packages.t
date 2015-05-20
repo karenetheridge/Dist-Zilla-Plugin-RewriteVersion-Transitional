@@ -89,9 +89,9 @@ FOO
         $source_file->slurp_utf8,
         <<"FOO",
 package Foo;
-our \$VERSION = '0.006';$trial_str
+our \$VERSION = '0.006';
 package Bar;
-our \$VERSION = '0.006';$trial_str
+our \$VERSION = '0.006';
 1;
 FOO
         '.pm contents in source saw the version incremented, in both packages',

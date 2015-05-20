@@ -90,7 +90,7 @@ around rewrite_version => sub
     # update existing our $VERSION = '...'; entry
     return 1 if $self->$orig($file, $version);
 
-    return $self->insert_version($file, $version);
+    return $self->insert_version($file, $version, $self->zilla->is_trial);
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -93,7 +93,7 @@ FOO
     my $source_file = path($tzil->tempdir, qw(source lib Foo.pm));
     is(
         $source_file->slurp_utf8,
-        "package Foo;\n# ABSTRACT: stuff\nour \$VERSION = '0.006';$trial_str\n1;\n",
+        "package Foo;\n# ABSTRACT: stuff\nour \$VERSION = '0.006';\n1;\n",
         '.pm contents in source module saw the incremented version inserted',
     );
 
