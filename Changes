@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-Plugin-RewriteVersion-Transitional
 
+{{$NEXT}}
+
 0.005     2015-05-20 02:32:40Z
           - now logging the number of version statements that were replaced
           - fix the name of the fallback version provider plugin used in

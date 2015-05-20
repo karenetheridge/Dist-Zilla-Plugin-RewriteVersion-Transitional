@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::RewriteVersion::Transitional;
 # KEYWORDS: plugin version rewrite munge module
 # vim: set ts=8 sts=4 sw=4 tw=78 et :
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 
 use Moose;
 extends 'Dist::Zilla::Plugin::RewriteVersion';
