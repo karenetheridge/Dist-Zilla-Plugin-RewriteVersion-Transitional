@@ -81,7 +81,7 @@ package Bar;
 our \$VERSION = '0.005';$trial_str
 1;
 FOO
-        '.pm contents in the build saw the version incremented, in both packages',
+        '.pm contents in the build saw the version inserted, in both packages',
     );
 
     my $source_file = path($tzil->tempdir, qw(source lib Foo.pm));
