@@ -138,6 +138,10 @@ L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion> would.
 You would then use L<[BumpVersionAfterRelease::Transitional]|Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional>
 to increment the C<$VERSION> in the F<.pm> files in the repository.
 
+B<Note:> If there is more than one package in a single file, if there was
+I<any> C<$VERSION> declaration in the file, no additional declarations are
+added for the other packages, even if you are using the C<global> option.
+
 =head1 CONFIGURATION OPTIONS
 
 Configuration is the same as in

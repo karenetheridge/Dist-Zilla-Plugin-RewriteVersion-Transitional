@@ -80,6 +80,10 @@ invoked to update the C<$VERSION> assignment in the module(s) in the
 repository to the next version. If no such expression exists in the module,
 one is added.
 
+B<Note:> If there is more than one package in a single file, if there was
+I<any> C<$VERSION> declaration in the file, no additional declarations are
+added for the other packages, even if you are using the C<global> option.
+
 =head1 CONFIGURATION OPTIONS
 
 Configuration is the same as in
