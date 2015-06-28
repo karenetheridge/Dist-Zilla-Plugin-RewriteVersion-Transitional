@@ -14,6 +14,7 @@ with 'Dist::Zilla::Role::InsertVersion';
 use Moose::Util::TypeConstraints 'role_type';
 use Dist::Zilla::Util;
 use Module::Runtime 'use_module';
+use Term::ANSIColor 'colored';
 use namespace::autoclean;
 
 has fallback_version_provider => (
@@ -83,11 +84,17 @@ around provide_version => sub
     return $self->_fallback_version_provider_obj->provide_version;
 };
 
+my $warned_underscore;
 around rewrite_version => sub
 {
     my $orig = shift;
     my $self = shift;
     my ($file, $version) = @_;
+
+    $self->log([
+        colored('%s is a dangerous $VERSION to use without stripping the underscore on a subsequent line!', 'yellow'),
+        $version,
+    ]) if $version =~ /_/ and not $warned_underscore++;
 
     # update existing our $VERSION = '...'; entry
     return 1 if $self->$orig($file, $version);

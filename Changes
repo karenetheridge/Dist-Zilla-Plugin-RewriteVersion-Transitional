@@ -3,6 +3,8 @@ Revision history for Dist-Zilla-Plugin-RewriteVersion-Transitional
 {{$NEXT}}
           - add documentation amendment about the handling of multiple
             packages in a file, where not all of them have $VERSIONs.
+          - warn when underscore versions are used -- no sanitization is
+            added, so the runtime $VERSION will not be numeric
 
 0.005     2015-05-20 02:32:40Z
           - now logging the number of version statements that were replaced
