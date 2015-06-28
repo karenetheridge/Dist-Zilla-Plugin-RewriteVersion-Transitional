@@ -3,7 +3,7 @@ use warnings;
 package Dist::Zilla::Plugin::RewriteVersion::Transitional;
 # ABSTRACT: Ease the transition to [RewriteVersion] in your distribution
 # KEYWORDS: plugin version rewrite munge module
-# vim: set ts=8 sts=4 sw=4 tw=78 et :
+# vim: set ts=8 sts=4 sw=4 tw=115 et :
 
 our $VERSION = '0.006';
 
