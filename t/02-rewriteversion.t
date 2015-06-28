@@ -72,8 +72,6 @@ cmp_deeply(
                     class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
                     config => superhashof({
                         'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
-                            fallback_version_provider => 'not used',
-                            _fallback_version_provider_args => { },
                         },
                         # TODO, in [RewriteVersion]
                         #'Dist::Zilla::Plugin::RewriteVersion' => {
