@@ -4,11 +4,11 @@
 
 =head1 NAME
 
-Dist::Zilla::Plugin::RewriteVersion::Transitional - ease the transition to [RewriteVersion] in your distribution
+Dist::Zilla::Plugin::RewriteVersion::Transitional - Ease the transition to [RewriteVersion] in your distribution
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
@@ -49,6 +49,10 @@ L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion> would.
 
 You would then use L<[BumpVersionAfterRelease::Transitional]|Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional>
 to increment the C<$VERSION> in the F<.pm> files in the repository.
+
+B<Note:> If there is more than one package in a single file, if there was
+I<any> C<$VERSION> declaration in the file, no additional declarations are
+added for the other packages, even if you are using the C<global> option.
 
 =head1 CONFIGURATION OPTIONS
 
