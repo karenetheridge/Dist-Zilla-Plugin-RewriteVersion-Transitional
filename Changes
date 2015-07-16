@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-RewriteVersion-Transitional
 
-{{$NEXT}}
+0.007     2015-07-16 18:58:00Z
           - work around (hopefully temporary) breakage with the addition of
             extra comments after $VERSION declarations by [RewriteVersion]
 
