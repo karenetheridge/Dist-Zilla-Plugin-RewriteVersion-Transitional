@@ -78,7 +78,6 @@ cmp_deeply(
                     config => superhashof({
                         'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
                         },
-                        # TODO, in [RewriteVersion]
                         #'Dist::Zilla::Plugin::RewriteVersion' => {
                         #    global => bool(0),
                         #    skip_version_provider => bool(0),
@@ -92,7 +91,6 @@ cmp_deeply(
                     config => superhashof({
                         'Dist::Zilla::Plugin::BumpVersionAfterRelease::Transitional' => {
                         },
-                        # TODO, in [BumpVersionAfterRelease]
                         #'Dist::Zilla::Plugin::BumpVersionAfterRelease' => {
                         #    global => bool(0),
                         #    munge_makefile_pl => bool(0),
