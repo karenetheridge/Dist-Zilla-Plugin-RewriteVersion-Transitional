@@ -61,7 +61,8 @@ around dump_config => sub
     $config->{+__PACKAGE__} = {
         $self->_using_fallback_version_provider
             ? ( map { $_ => $self->$_ } qw(fallback_version_provider _fallback_version_provider_args) )
-            : ()
+            : (),
+        blessed($self) ne __PACKAGE__ ? ( version => $VERSION ) : (),
     };
 
     $config->{ $self->fallback_version_provider } = $self->_fallback_version_provider_obj->dump_config

@@ -20,6 +20,7 @@ around dump_config => sub
 
     $config->{+__PACKAGE__} = {
         # TODO
+        blessed($self) ne __PACKAGE__ ? ( version => $VERSION ) : (),
     };
 
     return $config;
