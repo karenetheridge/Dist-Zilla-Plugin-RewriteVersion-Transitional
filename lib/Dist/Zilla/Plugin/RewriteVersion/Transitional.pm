@@ -114,7 +114,6 @@ In your F<dist.ini>:
 
     [RewriteVersion::Transitional]
     fallback_version_provider = Git::NextVersion
-    version_regexp = ^v([\d._]+)$
 
 =head1 DESCRIPTION
 
