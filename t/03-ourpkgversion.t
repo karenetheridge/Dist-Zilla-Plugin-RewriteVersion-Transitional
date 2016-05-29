@@ -8,7 +8,7 @@ use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 
-use Test::Requires 'Dist::Zilla::Plugin::OurPkgVersion';
+use Test::Needs 'Dist::Zilla::Plugin::OurPkgVersion';
 
 delete $ENV{RELEASE_STATUS};
 delete $ENV{TRIAL};
