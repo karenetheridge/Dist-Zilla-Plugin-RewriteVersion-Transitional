@@ -12,10 +12,12 @@ delete $ENV{RELEASE_STATUS};
 delete $ENV{TRIAL};
 delete $ENV{V};
 
-# this version adds "from Foo-Bar-0.001.tar.gz" comments unconditionally
+# version 0.010 adds "from Foo-Bar-0.001.tar.gz" comments unconditionally;
+# version 0.011 disables that behaviour by default
 use Dist::Zilla::Plugin::RewriteVersion;
 plan skip_all => 'These tests break with Dist::Zilla::Plugin::RewriteVersion 0.010'
-    if eval { Dist::Zilla::Plugin::RewriteVersion->VERSION('0.010'); 1 };
+    if eval { Dist::Zilla::Plugin::RewriteVersion->VERSION('0.010'); 1 }
+        and not eval { Dist::Zilla::Plugin::RewriteVersion->VERSION('0.011'); 1 };
 
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
