@@ -4,7 +4,7 @@ package # hide from PAUSE
     Dist::Zilla::Role::InsertVersion;
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 
-our $VERSION = '0.008';
+our $VERSION = '0.009';
 
 use Moose::Role;
 use Scalar::Util 'blessed';

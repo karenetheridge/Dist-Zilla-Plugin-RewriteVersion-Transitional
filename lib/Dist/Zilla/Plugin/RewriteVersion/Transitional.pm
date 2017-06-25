@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::RewriteVersion::Transitional;
 # ABSTRACT: Ease the transition to [RewriteVersion] in your distribution
 # KEYWORDS: plugin version rewrite munge module
 
-our $VERSION = '0.008';
+our $VERSION = '0.009';
 
 use Moose;
 extends 'Dist::Zilla::Plugin::RewriteVersion';
