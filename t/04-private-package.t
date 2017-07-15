@@ -8,9 +8,7 @@ use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 
-delete $ENV{RELEASE_STATUS};
-delete $ENV{TRIAL};
-delete $ENV{V};
+delete @ENV{qw(RELEASE_STATUS TRIAL V)};
 
 {
     package inc::SimpleVersionProvider;
