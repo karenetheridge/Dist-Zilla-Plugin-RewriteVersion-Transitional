@@ -57,7 +57,7 @@ sub insert_version
     $self->zilla->version($version) if $release_version ne $version;
 
     MUNGE_FILE: {
-        my $replaced;
+        my ($replaced, $version_munger);
         my $content = $file->content;
         if ($content =~ /\x{23} VERSION/ and eval { require Dist::Zilla::Plugin::OurPkgVersion; 1 })
         {
@@ -71,6 +71,8 @@ sub insert_version
                   ($self->zilla->is_trial xor $trial) ? $content =~ s/ # TRIAL VERSION//mg
                 : $trial ? $content =~ s/ # TRIAL VERSION/ # TRIAL/mg
                 : $content =~ s/ # VERSION$//mg;
+
+            $version_munger = blessed($self->_ourpkgversion) . ' ' . $self->_ourpkgversion->VERSION;
         }
         else
         {
@@ -83,14 +85,16 @@ sub insert_version
             my $trial_str = ($self->zilla->is_trial xor $trial) ? ' # TRIAL' : '';
 
             $replaced = $content =~ s/^\$\S+::(VERSION = '$version';)$trial_str/our \$$1/mg;
+
+            $version_munger = blessed($self->_pkgversion) . ' ' . $self->_pkgversion->VERSION;
         }
 
         $self->log(
             !$replaced
                 ? [ q{failed to insert our $VERSION = '%s'; into %s}, $version, $file->name ]
                 : $replaced == 1
-                    ? [ 'inserted $VERSION statement into %s', $file->name ]
-                    : [ 'inserted %d $VERSION statements into %s', $replaced, $file->name ]
+                    ? [ 'inserted $VERSION statement into %s with %s', $file->name, $version_munger ]
+                    : [ 'inserted %d $VERSION statements into %s with %s', $replaced, $file->name, $version_munger ]
         );
 
         $file->content($content);

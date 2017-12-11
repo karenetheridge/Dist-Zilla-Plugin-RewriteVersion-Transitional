@@ -137,11 +137,13 @@ FOO
         'plugin metadata, including dumped configs',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
+    my $version_munger = 'Dist::Zilla::Plugin::PkgVersion ' . Dist::Zilla::Plugin::PkgVersion->VERSION;
+
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            '[RewriteVersion::Transitional] inserted $VERSION statement into lib/Foo.pm',
-            '[BumpVersionAfterRelease::Transitional] inserted $VERSION statement into ' . $source_file,
+            '[RewriteVersion::Transitional] inserted $VERSION statement into lib/Foo.pm with ' . $version_munger,
+            '[BumpVersionAfterRelease::Transitional] inserted $VERSION statement into ' . $source_file . ' with ' . $version_munger,
         ),
         'got appropriate log messages about inserting new $VERSION statements',
     );
