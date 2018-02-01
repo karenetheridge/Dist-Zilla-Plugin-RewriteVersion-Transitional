@@ -31,10 +31,7 @@ my $tzil = Builder->from_config(
                 },
                 [ GatherDir => ],
                 [ MetaConfig => ],
-                [ 'RewriteVersion::Transitional' => {
-                        fallback_version_provider => 'not used',
-                    },
-                ],
+                [ 'RewriteVersion::Transitional' ],
                 [ FakeRelease => ],
                 [ 'BumpVersionAfterRelease::Transitional' ],
             ),
