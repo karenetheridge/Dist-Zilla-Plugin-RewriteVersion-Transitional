@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-RewriteVersion-Transitional
 
 {{$NEXT}}
+          - now providing a more helpful message when
+            fallback_version_provider is needed, but missing (sorry, Olaf!)
 
 0.008     2017-06-25 01:49:45Z
           - re-enable a test that will pass again after
