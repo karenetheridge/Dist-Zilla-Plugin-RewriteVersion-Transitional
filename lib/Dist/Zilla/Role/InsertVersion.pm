@@ -59,6 +59,8 @@ sub insert_version
     MUNGE_FILE: {
         my ($replaced, $version_munger);
         my $content = $file->content;
+
+        # look for [OurPkgVersion] insertion breadcrumb
         if ($content =~ /\x{23} VERSION/ and eval { require Dist::Zilla::Plugin::OurPkgVersion; 1 })
         {
             my $orig_content = $content;
