@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-Plugin-RewriteVersion-Transitional
 
+{{$NEXT}}
+
 0.009     2018-02-02 02:44:58Z
           - now providing a more helpful message when
             fallback_version_provider is needed, but missing (sorry, Olaf!)
