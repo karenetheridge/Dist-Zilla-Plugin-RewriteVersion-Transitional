@@ -128,6 +128,7 @@ In your F<dist.ini>:
 
     [RewriteVersion::Transitional]
     fallback_version_provider = Git::NextVersion
+    config = value  ; extra configs passed along to the fallback version provider
 
 =head1 DESCRIPTION
 
