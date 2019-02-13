@@ -92,9 +92,9 @@ FOO
     );
 
     ok(
-        (! grep {
-            m{^\[(RewriteVersion|BumpVersionAfterRelease)::Transitional\] inserted \$VERSION statement into .*Bar.pm}
-        } @{ $tzil->log_messages }),
+        (! grep
+            m{^\[(RewriteVersion|BumpVersionAfterRelease)::Transitional\] inserted \$VERSION statement into .*Bar.pm},
+            @{ $tzil->log_messages }),
         'did not log a message about inserting a $VERSION statement into private Foo::Bar',
     );
 

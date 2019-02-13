@@ -53,7 +53,7 @@ around BUILDARGS => sub
     my $args = $self->$orig(@_);
 
     my %extra_args = %$args;
-    delete @extra_args{ map { $_->name } $self->meta->get_all_attributes };
+    delete @extra_args{ map $_->name, $self->meta->get_all_attributes };
 
     return +{ %$args, _fallback_version_provider_args => \%extra_args };
 };
@@ -65,7 +65,7 @@ around dump_config => sub
 
     $config->{+__PACKAGE__} = {
         $self->_using_fallback_version_provider
-            ? ( map { $_ => $self->$_ } qw(fallback_version_provider _fallback_version_provider_args) )
+            ? ( map +($_ => $self->$_), qw(fallback_version_provider _fallback_version_provider_args) )
             : (),
         blessed($self) ne __PACKAGE__ ? ( version => $VERSION ) : (),
     };
