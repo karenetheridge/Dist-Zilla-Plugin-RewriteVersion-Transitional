@@ -19,6 +19,8 @@ Revision history for Dist-Zilla-Plugin-RewriteVersion-Transitional
             packages in a file, where not all of them have $VERSIONs.
           - warn when underscore versions are used -- no sanitization is
             added, so the runtime $VERSION will not be numeric
+          - (for [MetaConfig]) we only log the fallback_version_provider
+            configs if we used them
 
 0.005     2015-05-20 02:32:40Z
           - now logging the number of version statements that were replaced
